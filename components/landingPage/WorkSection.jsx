@@ -10,7 +10,7 @@ export default function WorkSection() {
         </Button>
       </div>
       <div className="grid relative grid-cols-1 md:grid-cols-2 gap-4 ">
-        <div className="sticky top-20 h-screen">
+        <div className="md:sticky md:top-20 md:h-screen">
           <Image
             src={"/rock.png"}
             alt=""
