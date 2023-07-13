@@ -1,6 +1,8 @@
 "use client";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
+import { FloatingNavServices } from "./start/FloatingNav";
+import { Button } from "./ui/button";
 
 const items = [
   {
@@ -8,7 +10,8 @@ const items = [
     href: "/home",
   },
   {
-    title: "Services",
+    // title: "Services",
+    title: <FloatingNavServices />,
     href: "/services",
   },
   {
@@ -40,22 +43,17 @@ export default function NavMenu() {
         <Tab.List
           as="div"
           className={
-            "flex items-center gap-4 justify-center bg-gray-900 w-fit rounded-md px-6 py-2 text-white"
+            "flex items-center gap-4 justify-center bg-gray-900 w-fit rounded-md px-4 py-2 text-white"
           }
         >
           {items.map((item, key) => (
             <Tab key={key} as={Fragment}>
               {({ selected }) => (
                 /* Use the `selected` state to conditionally style the selected tab. */
-                <button
-                  className={`${
-                    selected
-                      ? "bg-white text-gray-900"
-                      : "bg-gray-900 text-white"
-                  } flex-shrink-0 p-1.5 rounded-md font-medium  `}
-                >
+                <Button variant="ghost">
+                  {item.component && item.component}
                   {item.title}
-                </button>
+                </Button>
               )}
             </Tab>
           ))}
