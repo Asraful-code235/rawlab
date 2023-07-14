@@ -36,9 +36,9 @@ const Brand = () => {
             </div>
           </div>
         </div>
-        <section className="flex relative items-center pt-[6vw] flex-col justify-between ">
+        <section className="flex relative items-center pt-[6vw] flex-col justify-between mb-8 lg:mb-0">
           <div className="flex items-center ">
-            <div class="text-[10vw] font-normal">Let&apos;s</div>
+            <div class=" text-[3vw] sm:text-[10vw] font-normal">Let&apos;s</div>
             <img
               src="https://uploads-ssl.webflow.com/64144000a24d13596a775e66/644d0f831d573694e8589d93_img-say-hi.png"
               loading="lazy"
@@ -47,11 +47,11 @@ const Brand = () => {
               alt=""
               class="w-[15rem] object-cover max-w-full inline-block"
             />
-            <div class="text-[10vw] font-normal">work</div>
+            <div class=" text-[3vw] sm:text-[10vw] font-normal">work</div>
           </div>
-          <div class="text-[10vw] font-normal">together</div>
-          <div class="absolute top-[20%] bottom-auto right-[90%]">Say hi</div>
-          <div class="absolute top-[50%] bottom-auto right-[-12%]">
+          <div class="text-[3vw] sm:text-[10vw] font-normal">together</div>
+          <div class="absolute  top-[20%] bottom-auto right-[90%]">Say hi</div>
+          <div class="absolute text-[2vw] top-[70%] sm:top-[50%] bottom-auto right-[10%] sm:right-[0vmax]">
             Come by for a coffee
           </div>
           <div class="absolute bottom-[-10%] left-[5%]">Drop us a line</div>

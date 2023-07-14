@@ -1,14 +1,16 @@
-export default post = {
+import { defineField, defineType } from "sanity";
+
+export default defineType({
   name: "post",
-  title: "Post",
+  title: " Posts",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "title",
       title: "Title",
       type: "string",
-    },
-    {
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -16,14 +18,19 @@ export default post = {
         source: "title",
         maxLength: 96,
       },
-    },
-    {
+    }),
+    defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "string",
+    }),
+    defineField({
       name: "author",
       title: "Author",
       type: "reference",
       to: { type: "author" },
-    },
-    {
+    }),
+    defineField({
       name: "mainImage",
       title: "Main image",
       type: "image",
@@ -37,23 +44,24 @@ export default post = {
           title: "Alternative Text",
         },
       ],
-    },
-    {
+    }),
+    defineField({
       name: "categories",
       title: "Categories",
       type: "array",
       of: [{ type: "reference", to: { type: "category" } }],
-    },
-    {
+    }),
+
+    defineField({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
-    },
-    {
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "blockContent",
-    },
+    }),
   ],
 
   preview: {
@@ -67,4 +75,4 @@ export default post = {
       return { ...selection, subtitle: author && `by ${author}` };
     },
   },
-};
+});
