@@ -13,7 +13,7 @@ export default function HowWeDoIt() {
     queryKey: ["/howwedoit"],
     queryFn: async () => {
       const query = `
-        *[_type == "post"] {
+        *[_type == "post"] | order(publishedAt desc) {
           title,
           slug,
           mainImage {
