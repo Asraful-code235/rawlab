@@ -1,7 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { client } from "@/sanity/lib/client";
+import { urlForImage } from "@/sanity/lib/image";
 
 const categoriesWithHref = {
   "All Projects": "/work",
@@ -12,50 +20,96 @@ const categoriesWithHref = {
   Packaging: "/work?category=packaging",
 };
 
-export default function WorkPage() {
+export default function WorkPage(params) {
   const [selectedCategory, setSelectedCategory] = useState("All Projects");
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const path = usePathname();
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+  console.log(params);
 
   useEffect(() => {
-    // Add an event listener to track window width changes
     function handleResize() {
       setWindowWidth(window.innerWidth);
     }
-
-    // Initial setup
     handleResize();
-
-    // Add event listener on component mount and remove it on unmount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ...
-
-  // Handle select dropdown change
   const handleCategoryChange = (event) => {
     const newCategory = event.target.value;
-    setSelectedCategory(newCategory); // Update the selected category state with the label
-    // Update URL with the formatted category using Next.js Router
+    setSelectedCategory(newCategory);
     router.push(categoriesWithHref[newCategory]);
   };
 
+  const {
+    data: itemData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["/me/work", selectedCategory], // Include selectedCategory in the queryKey
+    queryFn: async ({ queryKey }) => {
+      const [, selectedCategory] = queryKey; // Destructure the queryKey to get the selectedCategory
+      let query = `
+        *[_type == "post"] | order(publishedAt desc) {
+        title,
+        slug,
+        mainImage {
+          alt,
+          asset
+        },
+        categories[] -> {
+            title,
+            slug {
+              current
+            }
+          },
+        excerpt,
+        publishedAt,
+        author->{_ref, name},
+      }`;
+
+      const data = await client.fetch(query);
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (itemData) {
+      if (selectedCategory === "All Projects") {
+        // If "All Projects" is selected, show all posts
+        setFilteredPosts(itemData);
+      } else {
+        // Otherwise, filter the posts based on the selected category
+        const filteredPosts = itemData.filter((post) => {
+          if (post.categories && post.categories.length > 0) {
+            return post.categories.find(
+              (category) =>
+                category.slug.current === params?.searchParams?.category
+            );
+          }
+          return false;
+        });
+        setFilteredPosts(filteredPosts);
+      }
+    }
+  }, [itemData, selectedCategory]);
+
+  console.log(filteredPosts);
+
   return (
     <>
-      {/* ... Your existing code ... */}
       <section className="pt-[2vw] pb-[8rem] relative overflow-hidden backdrop:border-gray-900">
-        {/* ... Your existing code ... */}
         {windowWidth < 1000 ? (
-          // Show select dropdown below md screen (768px width)
           <div className="w-full flex items-center justify-center mt-4">
             <label htmlFor="categorySelect" className="sr-only">
               Select Category
             </label>
             <select
               id="categorySelect"
-              value={selectedCategory} // <-- Set the value attribute with the selectedCategory state
+              value={selectedCategory}
               onChange={handleCategoryChange}
               className="text-[1.6vw] px-4 py-3 border-2 cursor-pointer border-gray-900 font-medium rounded-full w-full max-w-[48vw]"
             >
@@ -67,7 +121,6 @@ export default function WorkPage() {
             </select>
           </div>
         ) : (
-          // Show the button set above md screen (768px width)
           <div className="items-center justify-center gap-2 hidden md:flex">
             {Object.keys(categoriesWithHref).map((label) => (
               <div
@@ -79,7 +132,6 @@ export default function WorkPage() {
                 }`}
                 onClick={() => {
                   setSelectedCategory(label);
-                  // Update URL with the formatted category using Next.js Router
                   router.push(categoriesWithHref[label]);
                 }}
               >
@@ -88,7 +140,32 @@ export default function WorkPage() {
             ))}
           </div>
         )}
-        {/* ... Your existing code ... */}
+      </section>
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {filteredPosts?.map((post, key) => (
+          <div key={key} className="flex flex-col gap-2">
+            <div className=" rounded-md relative  hover:bg-opacity-75 hover:transition-all hover:duration-500">
+              <div className="flex items-center gap-2 absolute top-3 left-3">
+                {post.categories && (
+                  <Button>{post?.categories[0]?.title}</Button>
+                )}
+                {post.categories && (
+                  <Button>{post?.categories[1]?.title}</Button>
+                )}
+              </div>
+              <div className=" cursor-pointer">
+                <img
+                  src={urlForImage(post?.mainImage?.asset)}
+                  className="w-full rounded-md aspect-[16/10] object-center object-cover"
+                  alt=""
+                />
+              </div>
+            </div>
+            <h2 className="text-[3vw] line-clamp-1 whitespace-nowrap text-center font-medium">
+              {post.title}
+            </h2>
+          </div>
+        ))}
       </section>
     </>
   );

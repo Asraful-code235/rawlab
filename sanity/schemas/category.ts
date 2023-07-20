@@ -23,10 +23,5 @@ export default defineType({
           input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
       },
     }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-    }),
   ],
 });
