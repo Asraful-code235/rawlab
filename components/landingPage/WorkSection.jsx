@@ -9,8 +9,8 @@ export default function WorkSection() {
           View our Work
         </Button>
       </div>
-      <div className="grid relative grid-cols-1 md:grid-cols-2 gap-4 ">
-        <div className="md:sticky md:top-20 md:h-screen">
+      <div className="grid relative grid-cols-1 lg:grid-cols-2 gap-4 ">
+        <div className="lg:sticky lg:top-20 lg:h-screen">
           <Image
             src={"/rock.png"}
             alt=""

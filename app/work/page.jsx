@@ -10,6 +10,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
+import Link from "next/link";
 
 const categoriesWithHref = {
   "All Projects": "/work",
@@ -26,8 +27,6 @@ export default function WorkPage(params) {
   const router = useRouter();
   const path = usePathname();
   const [filteredPosts, setFilteredPosts] = useState([]);
-
-  console.log(params);
 
   useEffect(() => {
     function handleResize() {
@@ -97,11 +96,11 @@ export default function WorkPage(params) {
     }
   }, [itemData, selectedCategory]);
 
-  console.log(filteredPosts);
+  if (isLoading) return "Loading...";
 
   return (
     <>
-      <section className="pt-[2vw] pb-[8rem] relative overflow-hidden backdrop:border-gray-900">
+      <section className="pt-[2vw] pb-[4rem] relative overflow-hidden backdrop:border-gray-900">
         {windowWidth < 1000 ? (
           <div className="w-full flex items-center justify-center mt-4">
             <label htmlFor="categorySelect" className="sr-only">
@@ -141,9 +140,13 @@ export default function WorkPage(params) {
           </div>
         )}
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4">
         {filteredPosts?.map((post, key) => (
-          <div key={key} className="flex flex-col gap-2">
+          <Link
+            href={`/work/${post.slug.current}`}
+            key={key}
+            className="flex flex-col gap-2"
+          >
             <div className=" rounded-md relative  hover:bg-opacity-75 hover:transition-all hover:duration-500">
               <div className="flex items-center gap-2 absolute top-3 left-3">
                 {post.categories && (
@@ -164,7 +167,7 @@ export default function WorkPage(params) {
             <h2 className="text-[3vw] line-clamp-1 whitespace-nowrap text-center font-medium">
               {post.title}
             </h2>
-          </div>
+          </Link>
         ))}
       </section>
     </>

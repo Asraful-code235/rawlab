@@ -4,11 +4,11 @@ const Brand = () => {
   return (
     <>
       {/* ====== Brands Section Start */}
-      <section className="bg-white max-w-7xl mx-auto min-h-screen mt-[-20rem] lg:mt-20">
+      <section className="bg-white max-w-7xl mx-auto min-h-screen mt-[-40rem] sm:mt-[-20rem] lg:mt-20">
         <h1 className="text-gray-900 text-2xl font-semibold text-center">
           Our work has been seen in
         </h1>
-        <div className="container flex justify-center items-center mt-10">
+        <div className="container flex justify-center items-center mt-10 mb-16 sm:mb-0">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full px-4">
               <div className="flex flex-wrap items-center justify-center">
@@ -36,7 +36,7 @@ const Brand = () => {
             </div>
           </div>
         </div>
-        <section className="flex relative items-center pt-[6vw] flex-col justify-between mb-8 lg:mb-0">
+        <section className="flex relative items-center sm:pt-[6vw] flex-col justify-between mb-8 lg:mb-0">
           <div className="flex items-center ">
             <div class=" text-[3vw] sm:text-[10vw] font-normal">Let&apos;s</div>
             <img
@@ -45,7 +45,7 @@ const Brand = () => {
               width="240"
               height="160"
               alt=""
-              class="w-[15rem] object-cover max-w-full inline-block"
+              class=" w-[6rem] sm:w-[15rem] object-cover max-w-full inline-block"
             />
             <div class=" text-[3vw] sm:text-[10vw] font-normal">work</div>
           </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const Footer = () => {
   return (
-    <footer className="w-full flex flex-col  md:gap-20 my-14 min-h-[30vh]">
+    <footer className="w-full flex flex-col  md:gap-20 my-14 min-h-[30vh] ">
       <div className="flex items-center flex-wrap gap-4 justify-between px-10">
         {[
           "hello@rawlab.co",

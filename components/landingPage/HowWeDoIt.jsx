@@ -43,7 +43,7 @@ export default function HowWeDoIt() {
   return (
     <section className="max-w-screen-2xl mx-auto text-gray-900 min-h-screen mt-14 px-4 ">
       <h1 className="text-4xl text-center font-semibold mb-6">How We do it?</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1  lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {itemData?.slice(0, 3).map((item, key) => (
           <div key={key} className="flex flex-col gap-2">
             <div className="bg-gray-300 rounded-md relative aspect-square hover:bg-opacity-75 hover:transition-all hover:duration-500">
