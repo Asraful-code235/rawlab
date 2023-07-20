@@ -27,6 +27,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FloatingNavServices } from "./start/FloatingNav";
 import { Button } from "./ui/button";
 import { AlignJustify } from "lucide-react";
+import Link from "next/link";
 
 const items = [
   {
@@ -87,7 +88,7 @@ export default function NavMenu() {
                   variant="ghost"
                   className={`${isSelected(item.href) ? "bg-gray-700" : ""}`}
                 >
-                  {item.title}
+                  <Link href={`${item.href}`}>{item.title}</Link>
                 </Button>
               )}
             </Tab>
