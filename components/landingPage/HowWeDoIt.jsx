@@ -56,7 +56,7 @@ export default function HowWeDoIt() {
                 <Button>Branding</Button>
                 <Button>Web design</Button>
               </div>
-              <div className="h-[70vh] cursor-pointer">
+              <div className="lg:h-[70vh] cursor-pointer">
                 <img
                   src={urlForImage(item?.mainImage?.asset)}
                   className="w-full h-full rounded-md aspect-square object-center object-cover"
@@ -64,7 +64,7 @@ export default function HowWeDoIt() {
                 />
               </div>
             </div>
-            <h2 className="text-[3vw] line-clamp-1 whitespace-nowrap font-medium">
+            <h2 className="text-[3vw] line-clamp-1 whitespace-nowrap font-medium ">
               {item.title}
             </h2>
           </div>
