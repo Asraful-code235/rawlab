@@ -18,6 +18,9 @@ export default function WorkDetailsPage() {
             alt,
             asset
           },
+          about,
+          aboutDesc,
+          aboutPhotos,
           categories[] -> {
             title,
             slug {
@@ -25,7 +28,13 @@ export default function WorkDetailsPage() {
             }
           },
           excerpt,
+          theChallenge,
+          thechallengeDesc,
+          theChallengeImages,
           publishedAt,
+          TheSolution,
+          TheSolutionDesc,
+          theSolutionImages,
           author->{_ref, name},
         }`;
 
@@ -48,12 +57,12 @@ export default function WorkDetailsPage() {
               height={600}
               className="w-full aspect-video object-cover object-center "
             />
-            <div className="flex flex-col items-center justify-center absolute top-[40%] left-[35%]">
+            <div className="flex flex-col items-center justify-center absolute top-[40%] whitespace-nowrap  left-1/2 right-1/2">
               <h1 className="text-white text-[10vw]  ">{data?.title}</h1>
               <span className="flex items-center gap-4">
                 {data?.categories?.map((category, key) => (
                   <button
-                    className="bg-gray-900 bg-opacity-80 hover:cursor-pointer text-white rounded-full px-4 py-2"
+                    className="bg-gray-900 z-10 bg-opacity-80 hover:cursor-pointer text-white rounded-full px-4 py-2"
                     key={key}
                   >
                     {category.title}
@@ -62,7 +71,71 @@ export default function WorkDetailsPage() {
               </span>
             </div>
           </div>
-          <div className="mb-96"></div>
+          <div className="">
+            <section className="py-[10rem] space-y-9 px-4 md:max-w-[60vw] mx-auto text-center font-normal tracking-[-0.025rem] leading-[1.083]">
+              <h2 className=" text-[2rem] sm:text-[3rem]  ">
+                About the project
+              </h2>
+              <p className="text-5xl md:text-7xl font-semibold">
+                {data?.about}
+              </p>
+              <p className="text-2xl md:text-4xl">{data?.aboutDesc}</p>
+            </section>
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 ">
+              {" "}
+              {data?.aboutPhotos?.map((data, key) => (
+                <div key={key} className="rounded-md">
+                  <img
+                    src={urlForImage(data?.asset).url()}
+                    alt="about__image"
+                    className="aspect-square w-full object-cover object-center rounded-t-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="">
+            <section className="py-[10rem] space-y-9 px-4 md:max-w-[60vw] mx-auto text-center font-normal tracking-[-0.025rem] leading-[1.083]">
+              <h2 className="text-[2rem] sm:text-[3rem]">The Solution</h2>
+              <p className="text-5xl md:text-7xl font-semibold">
+                {data?.TheSolution}
+              </p>
+              <p className="text-2xl md:text-4xl">{data?.thechallengeDesc}</p>
+            </section>
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 ">
+              {" "}
+              {data?.theChallengeImages?.map((data, key) => (
+                <div key={key} className="rounded-md">
+                  <img
+                    src={urlForImage(data?.asset).url()}
+                    alt="about__image"
+                    className="aspect-square w-full object-cover object-center rounded-t-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="">
+            <section className="py-[10rem] space-y-9 px-4 md:max-w-[60vw] mx-auto text-center font-normal tracking-[-0.025rem] leading-[1.083]">
+              <h2 className="text-[2rem] sm:text-[3rem] ">The challenge</h2>
+              <p className="text-5xl md:text-7xl font-semibold ">
+                {data?.theChallenge}
+              </p>
+              <p className="text-2xl md:text-4xl">{data?.TheSolutionDesc}</p>
+            </section>
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 ">
+              {" "}
+              {data?.theSolutionImages?.map((data, key) => (
+                <div key={key} className="rounded-md">
+                  <img
+                    src={urlForImage(data?.asset).url()}
+                    alt="about__image"
+                    className="aspect-square w-full object-cover object-center rounded-t-md"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       ) : (
         // Show a placeholder or loading state while data is being fetched

@@ -20,17 +20,6 @@ export default defineType({
       },
     }),
     defineField({
-      name: "excerpt",
-      title: "Excerpt",
-      type: "string",
-    }),
-    defineField({
-      name: "author",
-      title: "Author",
-      type: "reference",
-      to: { type: "author" },
-    }),
-    defineField({
       name: "mainImage",
       title: "Main image",
       type: "image",
@@ -45,6 +34,72 @@ export default defineType({
         },
       ],
     }),
+
+    defineField({
+      name: "about",
+      title: "About the project Header",
+      type: "string",
+    }),
+    defineField({
+      name: "aboutDesc",
+      title: "About Description",
+      type: "string",
+    }),
+    defineField({
+      name: "aboutPhotos",
+      title: "About Photos",
+      type: "array", // Use array type for multiple images
+      of: [{ type: "image", options: { hotspot: true } }], // Allow multiple images
+      options: {
+        layout: "grid",
+      },
+    }),
+    defineField({
+      name: "theChallenge",
+      title: "The Challenge Header",
+      type: "string",
+    }),
+    defineField({
+      name: "thechallengeDesc",
+      title: "The Challenge Description",
+      type: "string",
+    }),
+    defineField({
+      name: "theChallengeImages",
+      title: "The Challenge Images",
+      type: "array", // Use array type for multiple images
+      of: [{ type: "image", options: { hotspot: true } }], // Allow multiple images
+      options: {
+        layout: "grid",
+      },
+    }),
+
+    defineField({
+      name: "TheSolution",
+      title: "The solution Header",
+      type: "string",
+    }),
+    defineField({
+      name: "TheSolutionDesc",
+      title: "The solution Description",
+      type: "string",
+    }),
+    defineField({
+      name: "theSolutionImages",
+      title: "The Solution Images",
+      type: "array", // Use array type for multiple images
+      of: [{ type: "image", options: { hotspot: true } }], // Allow multiple images
+      options: {
+        layout: "grid",
+      },
+    }),
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "reference",
+      to: { type: "author" },
+    }),
+
     defineField({
       name: "categories",
       title: "Categories",

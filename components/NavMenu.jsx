@@ -23,11 +23,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tab } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { FloatingNavServices } from "./start/FloatingNav";
 import { Button } from "./ui/button";
 import { AlignJustify } from "lucide-react";
 import Link from "next/link";
+import { FloatingContact } from "./start/FloatingContact";
 
 const items = [
   {
@@ -55,17 +56,19 @@ const items = [
     href: "/about-us",
   },
   {
-    title: "Contact",
+    title: <FloatingContact />,
     href: "/contact",
   },
 ];
 
 export default function NavMenu() {
   const router = usePathname();
+
   const [clicked, setClicked] = useState(false);
 
   const isSelected = (href) => {
-    return router === href;
+    const rootPath = router.split("/")[1]; // Declare rootPath inside isSelected
+    return rootPath === href.split("/")[1];
   };
 
   return (
@@ -95,12 +98,12 @@ export default function NavMenu() {
           ))}
         </Tab.List>
       </Tab.Group>
-      <Tab.Group as={"div"} className={"block md:hidden min-w-max "}>
+      <Tab.Group as={"div"} className={"block md:hidden "}>
         <Tab.List
           as="div"
-          className={
-            "flex w-full gap-4 items-center justify-between md:justify-center bg-gray-900 rounded-md px-4 py-2 text-white"
-          }
+          className={`${
+            clicked ? "min-w-[90vw] mx-auto" : ""
+          } flex  gap-4 items-center justify-between md:justify-center bg-gray-900 rounded-md px-4 py-2 text-white`}
         >
           {items.map((item, key) => (
             <Tab key={key} as={Fragment}>
@@ -111,7 +114,7 @@ export default function NavMenu() {
                     isSelected(item.href) ? " flex " : "hidden"
                   } ${clicked ? "" : ""}`}
                 >
-                  {item.title}
+                  {item?.title}
                 </span>
               )}
             </Tab>
@@ -130,9 +133,12 @@ export default function NavMenu() {
               <DropdownMenuGroup>
                 <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20  cursor-pointer rounded-md p-2">
                   <div className="space-y-2">
-                    <span className="text-white text-xl font-semibold">
+                    <Link
+                      href={"/"}
+                      className="text-white text-xl font-semibold"
+                    >
                       Home
-                    </span>
+                    </Link>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20 flex items-center justify-between  cursor-pointer rounded-md p-2">
@@ -204,9 +210,12 @@ export default function NavMenu() {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20  cursor-pointer rounded-md p-2">
                   <div className="space-y-2">
-                    <span className="text-white text-xl font-semibold">
+                    <Link
+                      href={"/work"}
+                      className="text-white text-xl font-semibold"
+                    >
                       Work
-                    </span>
+                    </Link>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20  cursor-pointer rounded-md p-2">
@@ -230,12 +239,62 @@ export default function NavMenu() {
                     </span>
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20  cursor-pointer rounded-md p-2">
-                  <div className="space-y-2">
+                <DropdownMenuItem className="hover:bg-white hover:bg-opacity-20 flex items-center justify-between  cursor-pointer rounded-md p-2">
+                  {/* <div className="space-y-2">
                     <span className="text-white text-xl font-semibold">
-                      Contact
+                      Services
                     </span>
-                  </div>
+                  </div> */}
+                  <Accordion
+                    type="single"
+                    collapsible
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-full text-white bg-transparent"
+                  >
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="border-none text-xl ">
+                        Contact
+                      </AccordionTrigger>
+
+                      <AccordionContent>
+                        <div className="flex flex-col gap-4">
+                          <div className="space-y-2 flex flex-col  gap-4 justify-between">
+                            <p className="text-white text-sm">info@rawlab.co</p>
+                            <p className="text-white text-sm">Instagram</p>
+                            <p className="text-white text-sm">Linkedin</p>
+                            <p className="text-white text-sm">TikTok</p>
+                          </div>
+                          <div className="space-y-2 flex items-center gap-4 justify-between">
+                            <div>
+                              <span className="text-white text-xl font-semibold">
+                                Start a project
+                              </span>
+                              <p className="text-white text-sm">
+                                The questions will help us determine the
+                                scop,scale and estimate the project budget. Lets
+                                make it happen
+                              </p>
+                            </div>
+                            <ArrowRight className="w-8 h-8 text-white" />
+                          </div>
+
+                          <div className=" flex items-center gap-4 justify-between">
+                            <div>
+                              <span className="text-white text-xl font-semibold">
+                                .raw talent
+                              </span>
+                              <p className="text-white">
+                                Join our .raw community. We are always on the
+                                look out for new talent and would love to get to
+                                know you better
+                              </p>
+                            </div>
+                            <ArrowRight className="w-8 h-8 text-white" />
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
