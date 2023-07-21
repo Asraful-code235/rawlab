@@ -16,6 +16,12 @@ export default function HowWeDoIt() {
         *[_type == "sortedWork"]{
           sorted
           []->{
+            categories[] -> {
+              title,
+              slug {
+                current
+              }
+            },
               title,
               slug,
               mainImage {
@@ -53,8 +59,12 @@ export default function HowWeDoIt() {
           <div key={key} className="flex flex-col gap-2">
             <div className="bg-gray-300 rounded-md relative aspect-square hover:bg-opacity-75 hover:transition-all hover:duration-500">
               <div className="flex items-center gap-2 absolute top-3 left-3">
-                <Button>Branding</Button>
-                <Button>Web design</Button>
+                {item.categories && (
+                  <Button>{item?.categories[0]?.title}</Button>
+                )}
+                {item.categories && (
+                  <Button>{item?.categories[1]?.title}</Button>
+                )}
               </div>
               <div className="lg:h-[70vh] cursor-pointer">
                 <img
