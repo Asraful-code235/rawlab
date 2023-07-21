@@ -94,17 +94,18 @@ export default function WorkDetailsPage() {
               ))}
             </div>
           </div>
+
           <div className="">
             <section className="py-[10rem] space-y-9 px-4 md:max-w-[60vw] mx-auto text-center font-normal tracking-[-0.025rem] leading-[1.083]">
-              <h2 className="text-[2rem] sm:text-[3rem]">The Solution</h2>
-              <p className="text-5xl md:text-7xl font-semibold">
-                {data?.TheSolution}
+              <h2 className="text-[2rem] sm:text-[3rem] ">The challenge</h2>
+              <p className="text-5xl md:text-7xl font-semibold ">
+                {data?.theChallenge}
               </p>
-              <p className="text-2xl md:text-4xl">{data?.thechallengeDesc}</p>
+              <p className="text-2xl md:text-4xl">{data?.TheSolutionDesc}</p>
             </section>
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 ">
               {" "}
-              {data?.theChallengeImages?.map((data, key) => (
+              {data?.theSolutionImages?.map((data, key) => (
                 <div key={key} className="rounded-md">
                   <img
                     src={urlForImage(data?.asset).url()}
@@ -117,15 +118,15 @@ export default function WorkDetailsPage() {
           </div>
           <div className="">
             <section className="py-[10rem] space-y-9 px-4 md:max-w-[60vw] mx-auto text-center font-normal tracking-[-0.025rem] leading-[1.083]">
-              <h2 className="text-[2rem] sm:text-[3rem] ">The challenge</h2>
-              <p className="text-5xl md:text-7xl font-semibold ">
-                {data?.theChallenge}
+              <h2 className="text-[2rem] sm:text-[3rem]">The Solution</h2>
+              <p className="text-5xl md:text-7xl font-semibold">
+                {data?.TheSolution}
               </p>
-              <p className="text-2xl md:text-4xl">{data?.TheSolutionDesc}</p>
+              <p className="text-2xl md:text-4xl">{data?.thechallengeDesc}</p>
             </section>
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 ">
               {" "}
-              {data?.theSolutionImages?.map((data, key) => (
+              {data?.theChallengeImages?.map((data, key) => (
                 <div key={key} className="rounded-md">
                   <img
                     src={urlForImage(data?.asset).url()}
